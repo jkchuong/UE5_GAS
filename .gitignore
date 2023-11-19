@@ -95,3 +95,5 @@ DerivedDataCache/*
 Intermediate/*
 Saved/*
 Build
+
+.idea/*
