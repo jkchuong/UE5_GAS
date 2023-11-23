@@ -33,10 +33,10 @@ void AAuraCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
-	if (const AAuraPlayerState* PlayerState = CastChecked<AAuraPlayerState>(GetPlayerState()))
+	if (const AAuraPlayerState* AuraPlayerState = CastChecked<AAuraPlayerState>(GetPlayerState()))
 	{
-		AbilitySystemComponent = PlayerState->GetAbilitySystemComponent();
-		AttributeSet = PlayerState->GetAttributeSet();
+		AbilitySystemComponent = AuraPlayerState->GetAbilitySystemComponent();
+		AttributeSet = AuraPlayerState->GetAttributeSet();
 	}
 }
 
