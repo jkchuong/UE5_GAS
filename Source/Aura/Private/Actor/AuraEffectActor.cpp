@@ -37,6 +37,7 @@ void AAuraEffectActor::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActo
 		// TODO: Should use gameplay effect, const_cast is used for now
 		UAuraAttributeSet* MutableOtherAttributeSet = const_cast<UAuraAttributeSet*>(OtherAttributeSet);
 		MutableOtherAttributeSet->SetHealth(OtherAttributeSet->GetHealth() + 25.0f);
+		MutableOtherAttributeSet->SetMana(OtherAttributeSet->GetMana() + 25.0f);
 		Destroy();
 	}
 }

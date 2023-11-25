@@ -8,7 +8,7 @@ UAuraAttributeSet::UAuraAttributeSet()
 {
 	InitHealth(75.0f);
 	InitMaxHealth(100.0f);
-	InitMana(50.0f);
+	InitMana(10.0f);
 	InitMaxMana(50.0f);
 }
 
@@ -16,7 +16,7 @@ void UAuraAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Ou
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
-	// Always replicate without any conditions. Line is required to actually replicate
+	// Always replicate without any conditions. Required to actually replicate
 	DOREPLIFETIME_CONDITION_NOTIFY(UAuraAttributeSet, Health, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UAuraAttributeSet, MaxHealth, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UAuraAttributeSet, Mana, COND_None, REPNOTIFY_Always);
