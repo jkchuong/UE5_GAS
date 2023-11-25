@@ -15,3 +15,8 @@ void UAuraWidgetController::BroadcastInitialValues()
 {
 	// To be overriden in child class
 }
+
+void UAuraWidgetController::BindCallbacksToDependencies()
+{
+	// To be overriden in child class
+}
