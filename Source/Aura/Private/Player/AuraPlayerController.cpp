@@ -25,10 +25,12 @@ void AAuraPlayerController::BeginPlay()
 
 	check(AuraContext); // Input context should be valid!
 
-	UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
-	check(Subsystem);
+	// Can be null on simulated proxies
+	if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
+	{
+		Subsystem->AddMappingContext(AuraContext, 0);
+	}
 
-	Subsystem->AddMappingContext(AuraContext, 0);
 
 	bShowMouseCursor = true;
 	DefaultMouseCursor = EMouseCursor::Default;
