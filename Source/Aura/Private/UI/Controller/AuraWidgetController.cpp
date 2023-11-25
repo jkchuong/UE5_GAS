@@ -10,3 +10,8 @@ void UAuraWidgetController::SetWidgetControllerParam(const FWidgetControllerPara
 	AbilitySystemComponent = WidgetControllerParams.AbilitySystemComponent;
 	AttributeSet = WidgetControllerParams.AttributeSet;
 }
+
+void UAuraWidgetController::BroadcastInitialValues()
+{
+	// To be overriden in child class
+}

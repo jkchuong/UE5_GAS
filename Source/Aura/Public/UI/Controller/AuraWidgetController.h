@@ -38,7 +38,7 @@ struct FWidgetControllerParams
 };
 
 /**
- * 
+ * Controller containing important information that can be used to pass data to widgets.
  */
 UCLASS()
 class AURA_API UAuraWidgetController : public UObject
@@ -48,6 +48,8 @@ class AURA_API UAuraWidgetController : public UObject
 public:
 	UFUNCTION(BlueprintCallable)
 	void SetWidgetControllerParam(const FWidgetControllerParams& WidgetControllerParams);
+
+	virtual void BroadcastInitialValues();
 
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "Widget Controller")
