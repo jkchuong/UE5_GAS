@@ -12,16 +12,16 @@ class UGameplayEffect;
 UENUM(BlueprintType)
 enum class EEffectApplicationPolicy
 {
+	DoNotApply,
 	ApplyOnOverlap,
-	ApplyOnEndOverlap,
-	DoNotApply
+	ApplyOnEndOverlap
 };
 
 UENUM(BlueprintType)
 enum class EEffectRemovalPolicy
 {
-	RemoveOnEndOverlap,
-	DoNotRemove
+	DoNotRemove,
+	RemoveOnEndOverlap
 };
 
 UCLASS()
@@ -47,6 +47,8 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects")
 	bool bDestroyOnEffectRemoval = false;
 
+	// TODO: Change this to be multiple effects (Use a map or make a class)
+	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects")
 	TSubclassOf<UGameplayEffect> InstantGameplayEffectClass;
 
