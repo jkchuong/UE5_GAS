@@ -23,3 +23,19 @@ UOverlayWidgetController* UAuraAbilitySystemFunctionLibrary::GetOverlayWidgetCon
 
 	return nullptr;
 }
+
+UAttributeMenuWidgetController* UAuraAbilitySystemFunctionLibrary::GetAttributeMenuWidgetController(const UObject* WorldContextObject)
+{
+	if (APlayerController* Controller = UGameplayStatics::GetPlayerController(WorldContextObject, 0))
+	{
+		if (AAuraHUD* AuraHUD = Cast<AAuraHUD>(Controller->GetHUD()))
+		{
+			AAuraPlayerState* PlayerState = Controller->GetPlayerState<AAuraPlayerState>();
+			UAbilitySystemComponent* AbilitySystemComponent = PlayerState->GetAbilitySystemComponent();
+			UAttributeSet* AttributeSet = PlayerState->GetAttributeSet();
+			return AuraHUD->GetAttributeMenuWidgetController(FWidgetControllerParams(Controller, PlayerState, AbilitySystemComponent, AttributeSet));
+		}
+	}
+
+	return nullptr;
+}
