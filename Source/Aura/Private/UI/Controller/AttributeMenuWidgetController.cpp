@@ -17,4 +17,10 @@ void UAttributeMenuWidgetController::BroadcastInitialValues()
 
 	check(AttributeInfo);
 
+	for (auto& Pair : AuraAttributeSet->TagsToAttributes)
+	{
+		FAuraAttributeInfo Info = AttributeInfo->FindAttributeInfoForTag(Pair.Key);
+		Info.AttributeValue = Pair.Value().GetNumericValue(AuraAttributeSet);
+		AttributeInfoDelegate.Broadcast(Info);	
+	}
 }
