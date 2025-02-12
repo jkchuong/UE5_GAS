@@ -9,12 +9,14 @@
 
 UOverlayWidgetController* AAuraHUD::GetOverlayWidgetController(const FWidgetControllerParams& InWidgetControllerParams)
 {
-	return Cast<UOverlayWidgetController>(GetWidgetController(OverlayWidgetController, OverlayWidgetControllerClass, InWidgetControllerParams));
+	OverlayWidgetController = Cast<UOverlayWidgetController>(GetWidgetController(OverlayWidgetController, OverlayWidgetControllerClass, InWidgetControllerParams));
+	return OverlayWidgetController;
 }
 
 UAttributeMenuWidgetController* AAuraHUD::GetAttributeMenuWidgetController(const FWidgetControllerParams& InWidgetControllerParams)
 {
-	return Cast<UAttributeMenuWidgetController>(GetWidgetController(AttributeMenuWidgetController, AttributeMenuWidgetControllerClass, InWidgetControllerParams));
+	AttributeMenuWidgetController = Cast<UAttributeMenuWidgetController>(GetWidgetController(AttributeMenuWidgetController, AttributeMenuWidgetControllerClass, InWidgetControllerParams));
+	return AttributeMenuWidgetController;
 }
 
 void AAuraHUD::InitOverlay(APlayerController* InPlayerController, APlayerState* InPlayerState,
