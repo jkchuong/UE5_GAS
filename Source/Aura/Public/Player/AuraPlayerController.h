@@ -54,6 +54,7 @@ private:
 	void AbilityInputTagHeld(FGameplayTag InputTag);
 	
 	void CursorTrace();
+	void AutoRun();
 	
 	IHighlightInterface* LastActor;
 	IHighlightInterface* ThisActor;
@@ -69,4 +70,5 @@ private:
 
 	UPROPERTY(VisibleAnywhere, Category = "Movement")
 	TObjectPtr<USplineComponent> Spline;
+	
 };
