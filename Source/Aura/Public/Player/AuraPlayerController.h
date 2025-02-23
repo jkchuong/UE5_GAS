@@ -58,8 +58,9 @@ private:
 	
 	IHighlightInterface* LastActor;
 	IHighlightInterface* ThisActor;
-	bool bTargeting = false;
+	FHitResult CursorHit;
 	
+	bool bTargeting = false;
 	FVector CachedDestination = FVector::ZeroVector;
 	float FollowTime = 0.0f;
 	float ShortPressThreshold = 0.5f;
