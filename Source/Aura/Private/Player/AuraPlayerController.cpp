@@ -112,27 +112,28 @@ void AAuraPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 	
 	GetAuraAbilitySystemComponent()->AbilityInputTagReleased(InputTag);
 
-	if (!bTargeting && !bShiftKeyDown)
-	{
-		APawn* ControlledPawn = GetPawn();
-		if (FollowTime <= ShortPressThreshold && ControlledPawn)
-		{
-			if (UNavigationPath* NavPath = UNavigationSystemV1::FindPathToLocationSynchronously(this, ControlledPawn->GetActorLocation(), CachedDestination))
-			{
-				Spline->ClearSplinePoints();
-				for (const FVector& PointLoc : NavPath->PathPoints)
-				{
-					Spline->AddSplinePoint(PointLoc, ESplineCoordinateSpace::World);
-					CachedDestination = PointLoc;
-				}
-				
-				bAutoRunning = true;
-			}
-		}
-
-		FollowTime = 0.0f;
-		bTargeting = false;
-	}
+	// Don't want to click to move to location
+	// if (!bTargeting && bShiftKeyDown)
+	// {
+	// 	APawn* ControlledPawn = GetPawn();
+	// 	if (FollowTime <= ShortPressThreshold && ControlledPawn)
+	// 	{
+	// 		if (UNavigationPath* NavPath = UNavigationSystemV1::FindPathToLocationSynchronously(this, ControlledPawn->GetActorLocation(), CachedDestination))
+	// 		{
+	// 			Spline->ClearSplinePoints();
+	// 			for (const FVector& PointLoc : NavPath->PathPoints)
+	// 			{
+	// 				Spline->AddSplinePoint(PointLoc, ESplineCoordinateSpace::World);
+	// 				CachedDestination = PointLoc;
+	// 			}
+	// 			
+	// 			bAutoRunning = true;
+	// 		}
+	// 	}
+	//
+	// 	FollowTime = 0.0f;
+	// 	bTargeting = false;
+	// }
 }
 
 void AAuraPlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
