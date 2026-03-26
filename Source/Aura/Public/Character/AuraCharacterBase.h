@@ -44,7 +44,7 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	FName WeaponTipSocketName;
 
-	virtual FVector GetCombatSocketLocation() override;
+	virtual FVector GetCombatSocketLocation() const override;
 
 	UPROPERTY(EditAnywhere, Category = "Ability")
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;

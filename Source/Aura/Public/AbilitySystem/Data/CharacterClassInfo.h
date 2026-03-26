@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameplayTagContainer.h"
+#include "Abilities/GameplayAbility.h"
 #include "Engine/DataAsset.h"
 #include "CharacterClassInfo.generated.h"
 
@@ -35,6 +36,12 @@ public:
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Common Class Defaults")
 	TSubclassOf<UGameplayEffect> VitalAttributes;
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Comon Class Defaults")
+	TArray<TSubclassOf<UGameplayAbility>> CommonAbilities;
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Comon Class Defaults|Damage")
+	TObjectPtr<UCurveTable> DamageCalculationCoeffecients;
 	
 	FCharacterClassDefaultInfo GetClassDefaultInfo(const FGameplayTag CharacterClass);
 };

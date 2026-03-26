@@ -6,6 +6,7 @@
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "AuraAbilitySystemFunctionLibrary.generated.h"
 
+class UCharacterClassInfo;
 class UAbilitySystemComponent;
 struct FGameplayTag;
 class UAttributeMenuWidgetController;
@@ -29,4 +30,10 @@ public:
 	
 	UFUNCTION(BlueprintCallable, Category = "AuraAbilitySystemFunctionLibrary|CharacterClassDefaults", meta=(WorldContext = "WorldContextObject"))
 	static void InitializeDefaultAttributes(const UObject* WorldContextObject, FGameplayTag CharacterClass, float Level, UAbilitySystemComponent* Asc);
+	
+	UFUNCTION(BlueprintCallable, Category = "AuraAbilitySystemFunctionLibrary|CharacterClassDefaults", meta=(WorldContext = "WorldContextObject"))
+	static void GiveStartupAbilities(const UObject* WorldContextObject, UAbilitySystemComponent* Asc);
+	
+	UFUNCTION(BlueprintCallable, Category = "AuraAbilitySystemFunctionLibrary|CharacterClassDefaults", meta=(WorldContext = "WorldContextObject"))
+	static UCharacterClassInfo* GetCharacterClassInfo(const UObject* WorldContextObject);
 };
