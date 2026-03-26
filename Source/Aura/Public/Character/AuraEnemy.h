@@ -31,6 +31,8 @@ public:
 	virtual int32 GetPlayerLevel() const override;
 	//~ End Combat Interface
 	
+	void HitReactTagChanged(const FGameplayTag CallbackTag, int32 NewCount);
+	
 	UPROPERTY(BlueprintAssignable)
 	FOnAttributeChangedDelegate OnHealthChanged;
 	
@@ -42,4 +44,10 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TObjectPtr<UWidgetComponent> HealthBar;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "Combat ")
+	float BaseWalkSpeed = 250.f;
+	
+	UPROPERTY(BlueprintReadOnly, Category = "Combat ")
+	bool bHitReacting = false;
 };

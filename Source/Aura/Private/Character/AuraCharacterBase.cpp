@@ -33,6 +33,11 @@ UAttributeSet* AAuraCharacterBase::GetAttributeSet() const
 	return AttributeSet;
 }
 
+UAnimMontage* AAuraCharacterBase::GetHitReactMontage_Implementation()
+{
+	return HitReactMontage;
+}
+
 void AAuraCharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
@@ -61,9 +66,12 @@ void AAuraCharacterBase::AddCharacterAbilities() const
 {
 	UAuraAbilitySystemComponent* AuraAbilityComponent = CastChecked<UAuraAbilitySystemComponent>(AbilitySystemComponent);
 	if (!HasAuthority())
+	{
 		return;
+	}
 
 	AuraAbilityComponent->AddCharacterAbilities(StartupAbilities);
+	UAuraAbilitySystemFunctionLibrary::GiveStartupAbilities(this, AuraAbilityComponent);
 }
 
 FVector AAuraCharacterBase::GetCombatSocketLocation() const
