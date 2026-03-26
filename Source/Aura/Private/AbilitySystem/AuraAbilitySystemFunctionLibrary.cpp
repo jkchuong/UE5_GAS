@@ -3,6 +3,8 @@
 
 #include "AbilitySystem/AuraAbilitySystemFunctionLibrary.h"
 
+#include "AbilitySystem/Data/CharacterClassInfo.h"
+#include "Game/AuraGameModeBase.h"
 #include "Kismet/GameplayStatics.h"
 #include "Player/AuraPlayerState.h"
 #include "UI/Controller/AuraWidgetController.h"
@@ -39,3 +41,30 @@ UAttributeMenuWidgetController* UAuraAbilitySystemFunctionLibrary::GetAttributeM
 
 	return nullptr;
 }
+
+void UAuraAbilitySystemFunctionLibrary::InitializeDefaultAttributes(const UObject* WorldContextObject, FGameplayTag CharacterClass, float Level, UAbilitySystemComponent* Asc)
+{
+	if (const AAuraGameModeBase* AuraGameMode = Cast<AAuraGameModeBase>(UGameplayStatics::GetGameMode(WorldContextObject)))
+	{
+		if (UCharacterClassInfo* CharacterClassInfo = AuraGameMode->CharacterClassInfo)
+		{
+			const AActor* AvatarActor = Asc->GetAvatarActor();
+			
+			FGameplayEffectContextHandle PrimaryContextHandle = Asc->MakeEffectContext();
+			PrimaryContextHandle.AddSourceObject(AvatarActor);
+			const FGameplayEffectSpecHandle PrimaryAttributesSpecHandle = Asc->MakeOutgoingSpec(CharacterClassInfo->GetClassDefaultInfo(CharacterClass).PrimaryAttributes, Level, PrimaryContextHandle);
+			Asc->ApplyGameplayEffectSpecToSelf(*PrimaryAttributesSpecHandle.Data.Get());
+			
+			FGameplayEffectContextHandle SecondaryContextHandle = Asc->MakeEffectContext();
+			SecondaryContextHandle.AddSourceObject(AvatarActor);
+			const FGameplayEffectSpecHandle SecondaryAttributesSpecHandle = Asc->MakeOutgoingSpec(CharacterClassInfo->SecondaryAttributes, Level, SecondaryContextHandle);
+			Asc->ApplyGameplayEffectSpecToSelf(*SecondaryAttributesSpecHandle.Data.Get());
+			
+			FGameplayEffectContextHandle VitalContextHandle = Asc->MakeEffectContext();
+			VitalContextHandle.AddSourceObject(AvatarActor);
+			const FGameplayEffectSpecHandle VitalAttributesSpecHandle = Asc->MakeOutgoingSpec(CharacterClassInfo->VitalAttributes, Level, VitalContextHandle);
+			Asc->ApplyGameplayEffectSpecToSelf(*VitalAttributesSpecHandle.Data.Get());
+		}
+	}
+}
+
