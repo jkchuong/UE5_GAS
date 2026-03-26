@@ -17,7 +17,6 @@ struct FAuraGameplayTags
 	FGameplayTag Attributes_Primary_Intelligence;
 	FGameplayTag Attributes_Primary_Resilience;
 	FGameplayTag Attributes_Primary_Vigor;
-
 	
 	FGameplayTag Attributes_Secondary_Armor;
 	FGameplayTag Attributes_Secondary_ArmorPenetration;
@@ -36,6 +35,8 @@ struct FAuraGameplayTags
 	FGameplayTag InputTag_2;
 	FGameplayTag InputTag_3;
 	FGameplayTag InputTag_4;
+	
+	FGameplayTag Damage;
 
 private:
 	static FAuraGameplayTags GameplayTags;

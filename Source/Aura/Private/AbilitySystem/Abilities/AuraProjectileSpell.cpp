@@ -5,6 +5,7 @@
 
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
+#include "AuraGameplayTags.h"
 #include "Actor/AuraProjectile.h"
 #include "AuraLogs.h"
 #include "Interaction/CombatInterface.h"
@@ -44,7 +45,10 @@ void UAuraProjectileSpell::SpawnProjectile(const FVector& ProjectileTargetLocati
 
 		if (Projectile)
 		{
+			const FAuraGameplayTags GameplayTags = FAuraGameplayTags::Get();
+			UAbilitySystemBlueprintLibrary::AssignTagSetByCallerMagnitude(SpecHandle, GameplayTags.Damage, 50.f);
 			Projectile->DamageEffectSpecHandle = SpecHandle;
+			
 			Projectile->FinishSpawning(SpawnTransform);
 		}
 		else
