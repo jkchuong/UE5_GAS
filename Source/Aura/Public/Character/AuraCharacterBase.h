@@ -46,13 +46,28 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	FName WeaponTipSocketName;
 
+	// ~ ICombatInterface
 	virtual FVector GetCombatSocketLocation() const override;
-
-	UPROPERTY(EditAnywhere, Category = "Ability")
+	virtual void Die() override;
+	// ~ End ICombatInterface
+	
+	UFUNCTION(NetMulticast, Reliable)
+	virtual void MulticastHandleDeath();
+	
+	UPROPERTY(EditAnywhere, Category = "Abilities")
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
 
 	UPROPERTY()
 	TObjectPtr<UAttributeSet> AttributeSet;
+	
+	void Dissolve();
+	
+	UFUNCTION(BlueprintImplementableEvent)
+	void StartDissolveTimeline(UMaterialInstanceDynamic* DynamicMaterialInstance);
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TObjectPtr<UMaterialInstance> DissolveMaterialInstance;
+
 	
 private:
 	UPROPERTY(EditAnywhere, Category = "Abilities")

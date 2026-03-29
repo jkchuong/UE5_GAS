@@ -25,4 +25,6 @@ public:
 	
 	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
 	void UpdateFacingTarget(const FVector& Target);
+	
+	virtual void Die() = 0;
 };
