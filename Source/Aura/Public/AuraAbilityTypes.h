@@ -28,7 +28,7 @@ struct FAuraGameplayEffectContext : public FGameplayEffectContext
 	/** Creates a copy of this context, used to duplicate for later modifications */
 	virtual FAuraGameplayEffectContext* Duplicate() const override
 	{
-		FAuraGameplayEffectContext* NewContext = new FAuraGameplayEffectContext();
+		FAuraGameplayEffectContext* NewContext = new FAuraGameplayEffectContext(); 
 		*NewContext = *this;
 		if (GetHitResult())
 		{
