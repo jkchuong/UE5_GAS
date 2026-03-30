@@ -6,7 +6,10 @@
 #include "AuraGameplayTags.h"
 #include "AbilitySystem/AuraAbilitySystemComponent.h"
 #include "AbilitySystem/AuraAttributeSet.h"
+#include "AI/AuraAIController.h"
 #include "Aura/Aura.h"
+#include "BehaviorTree/BehaviorTree.h"
+#include "BehaviorTree/BlackboardComponent.h"
 #include "Components/WidgetComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "UI/Widget/AuraUserWidget.h"
@@ -58,6 +61,25 @@ void AAuraEnemy::BeginPlay()
 		OnHealthChanged.Broadcast(AuraAs->GetHealth());
 		OnMaxHealthChanged.Broadcast(AuraAs->GetMaxHealth());
 	}
+}
+
+void AAuraEnemy::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+	
+	if (!HasAuthority())
+	{
+		return;
+	}
+	
+	AuraAIController = Cast<AAuraAIController>(NewController);
+	if (!AuraAIController)
+	{
+		return;
+	}
+
+	AuraAIController->GetBlackboardComponent()->InitializeBlackboard(*BehaviorTree->BlackboardAsset);
+	AuraAIController->RunBehaviorTree(BehaviorTree);
 }
 
 void AAuraEnemy::HighlightActor()
