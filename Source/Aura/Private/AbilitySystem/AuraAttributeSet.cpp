@@ -9,6 +9,8 @@
 #include "GameplayEffectExtension.h"
 #include "GameFramework/Character.h"
 #include "Interaction/CombatInterface.h"
+#include "Kismet/GameplayStatics.h"
+#include "Player/AuraPlayerController.h"
 
 UAuraAttributeSet::UAuraAttributeSet()
 {
@@ -130,6 +132,8 @@ void UAuraAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallba
 			{
 				Props.TargetAsc->TryActivateAbilitiesByTag(FGameplayTagContainer(FAuraGameplayTags::Get().Effects_HitReact));
 			}
+			
+			ShowDamageFloatText(Props, LocalIncomingDamage);
 		}
 	}
 }
@@ -263,4 +267,18 @@ void UAuraAttributeSet::SetEffectProperties(const FGameplayEffectModCallbackData
 	Properties.TargetCharacter = Cast<ACharacter>(Properties.TargetAvatarActor);
 	Properties.TargetAsc = &Data.Target;
 	// Properties.TargetAsc = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Properties.TargetAvatarActor);
+}
+
+void UAuraAttributeSet::ShowDamageFloatText(const FEffectProperties& Props, const float LocalIncomingDamage)
+{
+	// Don't show damage numbers when self-inflicted
+	if (Props.SourceCharacter != Props.TargetCharacter)
+	{
+		if (AAuraPlayerController* const PlayerController = Cast<AAuraPlayerController>(
+			UGameplayStatics::GetPlayerController(Props.SourceCharacter, 0)))
+		{
+			PlayerController->ShowDamageNumber(LocalIncomingDamage, Props.TargetCharacter);
+		}
+				
+	}
 }
