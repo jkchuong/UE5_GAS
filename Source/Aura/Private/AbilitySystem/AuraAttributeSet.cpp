@@ -7,6 +7,7 @@
 #include "AuraGameplayTags.h"
 #include "Net/UnrealNetwork.h"
 #include "GameplayEffectExtension.h"
+#include "AbilitySystem/AuraAbilitySystemFunctionLibrary.h"
 #include "GameFramework/Character.h"
 #include "Interaction/CombatInterface.h"
 #include "Kismet/GameplayStatics.h"
@@ -133,7 +134,9 @@ void UAuraAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallba
 				Props.TargetAsc->TryActivateAbilitiesByTag(FGameplayTagContainer(FAuraGameplayTags::Get().Effects_HitReact));
 			}
 			
-			ShowDamageFloatText(Props, LocalIncomingDamage);
+			const bool bBlock = UAuraAbilitySystemFunctionLibrary::IsBlockedHit(Props.EffectContextHandle);
+			const bool bCritical = UAuraAbilitySystemFunctionLibrary::IsCriticalHit(Props.EffectContextHandle);
+			ShowDamageFloatText(Props, LocalIncomingDamage, bBlock, bCritical);
 		}
 	}
 }
@@ -269,7 +272,7 @@ void UAuraAttributeSet::SetEffectProperties(const FGameplayEffectModCallbackData
 	// Properties.TargetAsc = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Properties.TargetAvatarActor);
 }
 
-void UAuraAttributeSet::ShowDamageFloatText(const FEffectProperties& Props, const float LocalIncomingDamage)
+void UAuraAttributeSet::ShowDamageFloatText(const FEffectProperties& Props, const float LocalIncomingDamage, const bool bBlockedHit, const bool bCriticalHit)
 {
 	// Don't show damage numbers when self-inflicted
 	if (Props.SourceCharacter != Props.TargetCharacter)
@@ -277,7 +280,7 @@ void UAuraAttributeSet::ShowDamageFloatText(const FEffectProperties& Props, cons
 		if (AAuraPlayerController* const PlayerController = Cast<AAuraPlayerController>(
 			UGameplayStatics::GetPlayerController(Props.SourceCharacter, 0)))
 		{
-			PlayerController->ShowDamageNumber(LocalIncomingDamage, Props.TargetCharacter);
+			PlayerController->ShowDamageNumber(LocalIncomingDamage, Props.TargetCharacter, bBlockedHit, bCriticalHit);
 		}
 				
 	}
